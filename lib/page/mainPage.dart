@@ -11,9 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List todos = [
-    ['learn ', false],
-    ["learn task", false],
-    ["learn task", false],
+    ["gelly", false]
   ]; // List to store todo items
 
   void addTodo(String todo) {
@@ -57,7 +55,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text('Cancel'),
             ),
-            ElevatedButton(
+            TextButton(
               onPressed: () {
                 setState(() {
                   todos[index][0] = editController.text; // Update the task
@@ -75,6 +73,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[700],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -88,15 +87,21 @@ class _HomePageState extends State<HomePage> {
         },
         child: Icon(Icons.add),
       ),
-      backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        backgroundColor: Colors.grey[900],
+        title: Text(
+          "All ToDo's",
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.w900, color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
+      // backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Column(
           children: [
             // Your existing UI components (e.g., search bar, header)
-            Text(
-              "All ToDo's",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
-            ),
+
             Expanded(
               child: ListView.builder(
                 itemCount: todos.length,

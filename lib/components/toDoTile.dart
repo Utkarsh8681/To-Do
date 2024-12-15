@@ -36,7 +36,7 @@ class _ToDoTileState extends State<ToDoTile> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Colors.white),
+            borderRadius: BorderRadius.circular(20), color: Colors.grey[800]),
         child: Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
           child: Container(
@@ -44,32 +44,48 @@ class _ToDoTileState extends State<ToDoTile> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Checkbox(
-                      value: widget.taskCompleted,
-                      onChanged: widget.onChanged,
-                    ),
-                    Text(
-                      widget.todo,
-                      style: TextStyle(
-                          decoration: widget.taskCompleted
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(onPressed: widget.edit, icon: Icon(Icons.edit)),
-                    IconButton(
-                        onPressed: widget.delete, icon: Icon(Icons.delete))
-                  ],
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 9.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: widget.taskCompleted,
+                        onChanged: widget.onChanged,
+                      ),
+                      Text(
+                        widget.todo,
+                        style: TextStyle(
+                            fontSize: 20,
+                            // color: Colors.white,
+                            decoration: widget.taskCompleted
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            decorationColor: Colors.black,
+                            decorationThickness: 3),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: widget.edit,
+                          icon: Icon(
+                            Icons.edit,
+                            // color: Colors.white,
+                          )),
+                      IconButton(
+                          onPressed: widget.delete,
+                          icon: Icon(
+                            Icons.delete,
+                            //  color: Colors.white
+                          ))
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
