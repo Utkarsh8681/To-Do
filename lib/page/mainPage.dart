@@ -28,6 +28,50 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void delete(int index) {
+    setState(() {
+      todos.removeAt(index);
+    });
+  }
+
+  void edit(int index) {
+    // Show a dialog box to edit the to-do
+    TextEditingController editController =
+        TextEditingController(text: todos[index][0]);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Edit To-Do'),
+          content: TextField(
+            controller: editController,
+            decoration: InputDecoration(
+              hintText: 'Edit your task',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  todos[index][0] = editController.text; // Update the task
+                });
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +105,8 @@ class _HomePageState extends State<HomePage> {
                     todo: todos[index][0],
                     onChanged: (value) => checkboxChanged(index),
                     taskCompleted: todos[index][1],
+                    delete: () => delete(index),
+                    edit: () => edit(index),
                   ); // Display each todo
                 },
               ),

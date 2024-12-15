@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ToDoTile extends StatefulWidget {
-  const ToDoTile(
+  ToDoTile(
       {super.key,
       required this.todo,
       required this.taskCompleted,
-      this.onChanged});
+      this.onChanged,
+      required this.delete,
+      required this.edit});
 
+  final VoidCallback edit;
   final String todo;
+  final VoidCallback delete;
   final bool taskCompleted;
   final Function(bool?)? onChanged;
 
@@ -24,43 +28,82 @@ class _ToDoTileState extends State<ToDoTile> {
     'Aanand'
   ];
 
-  String? selectedItem;
+  String? selectedItem = "Aman";
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Colors.white),
-          child: ListTile(
-            leading: Checkbox(
-              value: widget.taskCompleted,
-              onChanged: widget.onChanged,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
             ),
-            title: Text(
-              widget.todo,
-              style: TextStyle(
-                  decoration: widget.taskCompleted
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      value: widget.taskCompleted,
+                      onChanged: widget.onChanged,
+                    ),
+                    Text(
+                      widget.todo,
+                      style: TextStyle(
+                          decoration: widget.taskCompleted
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    IconButton(onPressed: widget.edit, icon: Icon(Icons.edit)),
+                    IconButton(
+                        onPressed: widget.delete, icon: Icon(Icons.delete))
+                  ],
+                )
+              ],
             ),
-            trailing: DropdownButton<String>(
-              value: selectedItem,
-              hint: Text("Select a Namme"),
-              icon: Icon(Icons.arrow_drop_down),
-              items: items.map((item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(item),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedItem = newValue;
-                });
-              },
-            ),
-          )),
+          ),
+        ),
+        //  ListTile(
+        //   leading: Checkbox(
+        //     value: widget.taskCompleted,
+        //     onChanged: widget.onChanged,
+        //   ),
+        //   title:
+        // Text(
+        //     widget.todo,
+        //     style: TextStyle(
+        //         decoration: widget.taskCompleted
+        //             ? TextDecoration.lineThrough
+        //             : TextDecoration.none),
+        //   ),
+        //   trailing: DropdownButton<String>(
+        //     value: selectedItem,
+        //     hint: Text("Select a Name"),
+        //     icon: Icon(Icons.arrow_drop_down),
+        //     items: items.map((item) {
+        //       return DropdownMenuItem<String>(
+        //         value: item,
+        //         child: Text(item),
+        //       );
+        //     }).toList(),
+        //     onChanged: (String? newValue) {
+        //       setState(() {
+        //         selectedItem = newValue;
+        //       });
+        //     },
+        //   ),
+        // )
+      ),
     );
   }
 }
