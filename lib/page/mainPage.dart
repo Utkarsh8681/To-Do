@@ -152,7 +152,9 @@ class _HomePageState extends State<HomePage> {
 
   void addTodo(String todo) {
     setState(() {
-      todos.add(todo, false); // Add new todo to the list
+      todos.add(
+        todo,
+      ); // Add new todo to the list
     });
   }
 
